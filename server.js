@@ -14,7 +14,7 @@ app.use(BodyParser.urlencoded({extended: true}));
 
 app.get('/:Id', (req, res) => {
 	res.sendFile(path.join(__dirname,'./public/index.html'))
-})
+});
 
 app.get('/:Id/amenities', (req, res) => {
 	request(`http://127.0.0.1:4420/${req.params.Id}/amenities`, function(err, response, body) {
@@ -23,7 +23,7 @@ app.get('/:Id/amenities', (req, res) => {
 		}
 		res.json(JSON.parse(body));
 	});
-})
+});
 
 app.listen(port, () => {
 	console.log(path.join(__dirname, './public'));
