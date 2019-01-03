@@ -26,13 +26,17 @@ app.get('/:Id/amenities', (req, res) => {
 });
 
 app.get('/:Id/reviews', (req, res) => {
-	request({
-		uri: `http://127.0.0.1:8000/${req.params.Id}/reviews`,
-		data:[{
-			limit: Number(req.query.limit),
-			offset: Number(req.query.offset),
-		}]
-	}, (err, response, body) => {
+	console.log(req);
+	request(`http://127.0.0.1:8000/${req.params.Id}/reviews?limit=${req.query.limit}&offset=${req.query.offset}`, (err, response, body) => {
+		if (err) {
+			console.log(err);
+		}
+		res.json(JSON.parse(body));
+	})
+});
+
+app.get('//amenities', (req, res) => {
+	request(`http://127.0.0.1:4420//amenities`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
