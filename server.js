@@ -27,11 +27,12 @@ app.get('/:Id/amenities', (req, res) => {
 
 app.get('/:Id/reviews', (req, res) => {
 	request({
-		uri: `http://127.0.0.1:8000/${req.params.Id}/reviews`,
+		method: 'GET',
+		uri:`http://127.0.0.1:8000/${req.params.Id}/reviews`,
 		data:[{
-			limit: Number(req.query.limit),
-			offset: Number(req.query.offset),
-		}]
+			offset: req.query.offset,
+			limit: req.query.limit,
+		}],
 	}, (err, response, body) => {
 		if (err) {
 			console.log(err);
