@@ -26,7 +26,13 @@ app.get('/:Id/amenities', (req, res) => {
 });
 
 app.get('/:Id/reviews', (req, res) => {
-	request(`http://127.0.0.1:8000/${req.params.Id}/reviews`, (err, response, body) => {
+	request({
+		uri: `http://127.0.0.1:8000/${req.params.Id}/reviews`,
+		data:[{
+			limit: Number(req.query.limit),
+			offset: Number(req.query.offset),
+		}]
+	}, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -53,7 +59,7 @@ app.get('/homes/:Id/suggestions', (req, res) => {
 })
 
 app.get('/availabilities/:Id', (req, res) => {
-	request(`http://127.0.0.1:1001/availabilities/${req.params.Id}/suggestion`, (err, response, body) => {
+	request(`http://127.0.0.1:1001/availabilities/${req.params.Id}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -64,7 +70,7 @@ app.get('/availabilities/:Id', (req, res) => {
 app.put('/availabilities/:Id', (req, res) => {
 	request({
 		method: 'PUT',
-		uri:`http://127.0.0.1:3050/availabilities/${req.params.Id}/suggestions`,
+		uri:`http://127.0.0.1:3050/availabilities/${req.params.Id}`,
 		data:[{
 			'content-type': 'application/json',
 			body: req.body,
