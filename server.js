@@ -5,7 +5,7 @@ const path = require('path');
 const morgan = require('morgan');
 const request = require('request');
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, './public')));
@@ -53,7 +53,7 @@ app.get('/homes/:Id/suggestions', (req, res) => {
 })
 
 app.get('/availabilities/:Id', (req, res) => {
-	request(`http://127.0.0.1:1001/availabilities/${req.params.Id}/suggestion`, (err, response, body) => {
+	request(`http://127.0.0.1:1001/availabilities/${req.params.Id}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -64,7 +64,7 @@ app.get('/availabilities/:Id', (req, res) => {
 app.put('/availabilities/:Id', (req, res) => {
 	request({
 		method: 'PUT',
-		uri:`http://127.0.0.1:3050/availabilities/${req.params.Id}/suggestions`,
+		uri:`http://127.0.0.1:3050/availabilities/${req.params.Id}`,
 		data:[{
 			'content-type': 'application/json',
 			body: req.body,
