@@ -1,0 +1,20 @@
+#Photo-gallery {
+  display: block;
+}
+
+#Amenities {
+  display: inline-block;
+}
+
+#Reviews {
+  margin: 10%;
+  display: block;
+}
+
+#Suggestions {
+	display: block;
+}
+
+#Availability {
+	display: block;
+}
