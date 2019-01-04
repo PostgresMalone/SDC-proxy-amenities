@@ -26,7 +26,6 @@ app.get('/:Id/amenities', (req, res) => {
 });
 
 app.get('/:Id/reviews', (req, res) => {
-	console.log(req);
 	request(`http://127.0.0.1:8000/${req.params.Id}/reviews?limit=${req.query.limit}&offset=${req.query.offset}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
