@@ -62,18 +62,18 @@ app.get('/homes/:Id/suggestions', (req, res) => {
 })
 
 app.get('/availabilities/:Id', (req, res) => {
-	request(`http://127.0.0.1:1001/availabilities/${req.params.Id}`, (err, response, body) => {
+	request(`http://18.191.46.241/availabilities/${req.params.Id}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
-		res.json(JSON.parse(body));
+		res.send(body);
 	})
 })
 
 app.put('/availabilities/:Id', (req, res) => {
 	request({
 		method: 'PUT',
-		uri:`http://127.0.0.1:3050/availabilities/${req.params.Id}`,
+		uri:`http://18.191.46.241/availabilities/${req.params.Id}`,
 		data:[{
 			'content-type': 'application/json',
 			body: req.body,
