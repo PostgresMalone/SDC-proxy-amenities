@@ -17,7 +17,7 @@ app.get(`/:Id`, (req, res) => {
 });
 
 app.get(`/:Id/amenities`, (req, res) => {
-	request(`http://127.0.0.1:4420/${req.params.Id}/amenities`, (err, response, body) => {
+	request(`http://54.67.22.134/${req.params.Id}/amenities`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -26,7 +26,7 @@ app.get(`/:Id/amenities`, (req, res) => {
 });
 
 app.get(`/:Id/reviews`, (req, res) => {
-	request(`http://127.0.0.1:8000/${req.params.Id}/reviews?limit=${req.query.limit}&offset=${req.query.offset}`, (err, response, body) => {
+	request(`http://13.56.234.247/${req.params.Id}/reviews?limit=${req.query.limit}&offset=${req.query.offset}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -35,7 +35,7 @@ app.get(`/:Id/reviews`, (req, res) => {
 });
 
 app.get(`//amenities`, (req, res) => {
-	request(`http://127.0.0.1:4420//amenities`, (err, response, body) => {
+	request(`http://54.67.22.134//amenities`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -44,7 +44,7 @@ app.get(`//amenities`, (req, res) => {
 });
 
 app.get(`/photos/:Id`, (req, res) => {
-	request(`http://127.0.0.1:1234/photos/${req.params.Id}`, (err, response, body) => {
+	request(`http://18.217.250.139/photos/${req.params.Id}`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -53,7 +53,7 @@ app.get(`/photos/:Id`, (req, res) => {
 });
 
 app.get(`/homes/:Id/suggestions`, (req, res) => {
-	request(`http://127.0.0.1:3050/homes/${req.params.Id}/suggestions`, (err, response, body) => {
+	request(`http://18.212.20.57/homes/${req.params.Id}/suggestions`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -86,7 +86,7 @@ app.post(`user/favorites`, (req, res) => {
 		uri:`http://18.212.20.57/user/favorites`,
 		data:[{
 			'content-type': 'application/json',
-			body: req.body,
+			body: req.body.listName,
 		}]
 	}, (err, response, body) => {
 		if (err) {
