@@ -1,3 +1,4 @@
+require('newrelic');
 const express = require('express');
 const BodyParser = require('body-parser');
 const Partials = require('express-partials');
@@ -6,6 +7,8 @@ const morgan = require('morgan');
 const request = require('request');
 const app = express();
 const port = process.env.PORT || 3000;
+const proxy = require('http-proxy-middleware');
+const axios = require('axios');
 
 app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, './public')));
@@ -17,7 +20,7 @@ app.get(`/:Id`, (req, res) => {
 });
 
 app.get(`/:Id/amenities`, (req, res) => {
-	request(`http://54.67.22.134/${req.params.Id}/amenities`, (err, response, body) => {
+	request(`http://localhost:4420/${req.params.Id}/amenities`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
@@ -35,13 +38,46 @@ app.get(`/:Id/reviews`, (req, res) => {
 });
 
 app.get(`//amenities`, (req, res) => {
-	request(`http://54.67.22.134//amenities`, (err, response, body) => {
+	request(`http://localhost:4420//amenities`, (err, response, body) => {
 		if (err) {
 			console.log(err);
 		}
 		res.json(JSON.parse(body));
 	})
 });
+
+app.get('/amenities/rooms/:roomId', (req, res) => {
+  const { roomId } = req.params;
+  request(`http://localhost:4420/rooms/${roomId}`, (err, response, body) => {
+		if (err) {
+			console.log(err);
+		}
+		res.json(JSON.parse(body));
+	})
+});
+
+app.post('/amenities/rooms', (req, res) => {
+  console.log('req.body ', req.body );
+  // res.send('ok');
+  axios.post('http://localhost:4420/rooms', { ...req.body })
+    .then(data => {
+      res.send(data);
+    })
+    .catch(err => {
+      console.log('Error', err);
+      res.send('Error in posting new room.');
+    });
+});
+// app.use('/amenities/rooms/:roomId', proxy({ target: 'http://localhost:4420', changeOrigin: true }));
+// app.delete('/amenities/rooms/:roomId', (req, res) => {
+//   const { roomId } = req.params;
+//   request(`http://localhost:4420/rooms/${roomId}`, (err, response, body) => {
+// 		if (err) {
+// 			console.log(err);
+// 		}
+// 		res.json(JSON.parse(body));
+// 	})
+// });
 
 app.get(`/photos/:Id`, (req, res) => {
 	request(`http://18.217.250.139/photos/${req.params.Id}`, (err, response, body) => {
